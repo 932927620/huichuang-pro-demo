@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>系统预览</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+
+    .container {
+      display: flex;
+      height: 100dvh;
+      min-width: 440px;
+    }
+
+    /* 左侧菜单 */
+    .sidebar {
+      width: 220px;
+      background-color: #2c3e50;
+      color: white;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1000;
+      height: 100vh; /* 确保占满视口高度 */
+    }
+
+    /* Logo 样式 */
+    .sidebar img {
+      display: block;
+      margin: 16px auto;
+      width: 120px;
+      height: 60px;
+    }
+
+    /* 父菜单 */
+    .parent-menu {
+      cursor: pointer;
+      padding: 14px 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #34495e;
+      transition: background-color 0.2s;
+    }
+
+    .parent-menu:hover {
+      background-color: #34495e;
+    }
+
+    .parent-menu.active {
+      background-color: #3498db;
+    }
+
+    .arrow {
+      transition: transform 0.3s;
+    }
+
+    .parent-menu.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    /* 子菜单容器 */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background-color: #316293;
+
+      border-left: 5px solid #d9e20c;
+      margin-left: 12px; /* 缩进表示层级 */
+    }
+
+    .submenu.show {
+      max-height: 1000px;
+    }
+
+    /* 子菜单项 - 通用 */
+    .submenu-item {
+      padding: 12px 40px;
+      cursor: pointer;
+      border-bottom: 1px solid #3a506b;
+      transition: background-color 0.2s;
+    }
+
+    .submenu-item:hover {
+      background-color: #3a506b;
+    }
+
+    /* 高亮状态：统一去边框 + 白色文字 */
+    .submenu-item.active {
+      background-color: #3498db;
+      color: white;
+      border-bottom: none; /* ✅ 关键：去掉边框 */
+    }
+
+    /* 顶级菜单项（如首页） */
+    .submenu-item.standalone {
+      padding: 14px 20px;
+      font-weight: bold;
+      border-bottom: 1px solid #34495e;
+    }
+
+    /* standalone 的 hover 更协调 */
+    .submenu-item.standalone:hover {
+      background-color: #34495e;
+    }
+
+        /* 右侧内容区：改用 flex 布局并撑满 */
+    .content {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      /* 关键：设置 min-height 确保不塌陷 */
+      min-height: 0; /* 防止 flex 子元素被压缩 */
+      box-sizing: border-box;
+    }
+
+    /* 图片容器：改用 100% 宽高，且保持比例 */
+    .image-container {
+      width: 100%;
+      height: 100%; /* ← 改为 100% */
+      max-width: none; /* 移除限制 */
+      aspect-ratio: 16 / 9; /* 保持比例 */
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 图片：铺满容器 */
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 保证图片不变形，裁剪填充 */
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 左侧菜单 -->
+    <div class="sidebar">
+      <img src="imgs/logo2.png" alt="Logo" />
+
+      <!-- 首页：standalone，无子菜单 -->
+      <div class="submenu-item standalone active" data-image="imgs/home.png">首页</div>
+
+      <!-- 系统管理 -->
+      <div class="parent-menu" data-parent="menu1">
+        <span>系统管理</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="submenu" id="menu1">
+        <div class="submenu-item" data-image="imgs/xt-user.png">用户管理</div>
+        <div class="submenu-item" data-image="imgs/xt-jsgl.png">角色管理</div>
+        <div class="submenu-item" data-image="imgs/xt-cdgl.png">菜单管理</div>
+        <div class="submenu-item" data-image="imgs/xt-bmgl.png">部门管理</div>
+        <div class="submenu-item" data-image="imgs/xt-gwgl.png">岗位管理</div>
+        <div class="submenu-item" data-image="imgs/xt-tzgg.png">通知公告</div>
+      </div>
+
+      <!-- 基础设施 -->
+      <div class="parent-menu" data-parent="menu2">
+        <span>基础设施</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="submenu" id="menu2">
+        <div class="submenu-item" data-image="imgs/pz-wjpz.png">文件配置</div>
+        <div class="submenu-item" data-image="imgs/pz-wjlb.png">文件列表</div>
+        <div class="submenu-item" data-image="imgs/pz-pzgl.png">配置管理</div>
+      </div>
+
+      <!-- ERP系统 -->
+      <div class="parent-menu" data-parent="menu3">
+        <span>ERP系统</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="submenu" id="menu3">
+        <div class="submenu-item" data-image="imgs/erp-erphome.png">ERP首页</div>
+        <div class="parent-menu" data-parent="menu3-cg">
+          <span>采购管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="submenu" id="menu3-cg">
+          <div class="submenu-item" data-image="imgs/erp-cgdd.png">采购订单</div>
+          <div class="submenu-item" data-image="imgs/erp-cgrk.png">采购入库</div>
+          <div class="submenu-item" data-image="imgs/erp-cgth.png">采购退货</div>
+          <div class="submenu-item" data-image="imgs/erp-gysxx.png">供应商信息</div>
+        </div>
+        <div class="parent-menu" data-parent="menu3-kc">
+          <span>库存管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="submenu" id="menu3-kc">
+          <div class="submenu-item" data-image="imgs/erp-ckxx.png">仓库信息</div>
+          <div class="submenu-item" data-image="imgs/erp-cpkc.png">产品库存</div>
+          <div class="submenu-item" data-image="imgs/erp-crkmx.png">出入库明细</div>
+          <div class="submenu-item" data-image="imgs/erp-qtrk.png">其他入库</div>
+          <div class="submenu-item" data-image="imgs/erp-qtck.png">其他出库</div>
+          <div class="submenu-item" data-image="imgs/erp-kcdb.png">库存调拨</div>
+          <div class="submenu-item" data-image="imgs/erp-kcpd.png">库存盘点</div>
+        </div>
+        <div class="parent-menu" data-parent="menu3-xs">
+          <span>销售管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="submenu" id="menu3-xs">
+          <div class="submenu-item" data-image="imgs/erp-xsdd.png">销售订单</div>
+          <div class="submenu-item" data-image="imgs/erp-xsck.png">销售出库</div>
+          <div class="submenu-item" data-image="imgs/erp-xsth.png">销售退货</div>
+          <div class="submenu-item" data-image="imgs/erp-khxx.png">客户信息</div>
+        </div>
+        <div class="parent-menu" data-parent="menu3-cp">
+          <span>产品管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="submenu" id="menu3-cp">
+          <div class="submenu-item" data-image="imgs/erp-cpxx.png">产品信息</div>
+          <div class="submenu-item" data-image="imgs/erp-cpfl.png">产品分类</div>
+          <div class="submenu-item" data-image="imgs/erp-cpdw.png">产品单位</div>
+        </div>
+        <div class="parent-menu" data-parent="menu3-cw">
+          <span>财务管理</span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="submenu" id="menu3-cw">
+          <div class="submenu-item" data-image="imgs/erp-fkd.png">付款单</div>
+          <div class="submenu-item" data-image="imgs/erp-skd.png">收款单</div>
+          <div class="submenu-item" data-image="imgs/erp-jszh.png">结算账户</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧图片区域 -->
+    <div class="content">
+      <div class="image-container">
+        <img id="mainImage" src="imgs/home.png" alt="首页" />
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mainImage = document.getElementById('mainImage');
+      const sidebar = document.querySelector('.sidebar');
+
+      const topLevelParents = Array.from(sidebar.children).filter(el =>
+              el.classList.contains('parent-menu')
+      );
+
+      sidebar.addEventListener('click', function (e) {
+        const target = e.target;
+
+        if (target.classList.contains('parent-menu')) {
+          e.stopPropagation();
+
+          const targetId = target.getAttribute('data-parent');
+          const submenu = document.getElementById(targetId);
+          if (!submenu) return;
+
+          const isCurrentlyOpen = submenu.classList.contains('show');
+
+          // 🔸 局部手风琴：关闭同级嵌套菜单
+          const directParentSubmenu = target.closest('.submenu');
+          if (directParentSubmenu) {
+            directParentSubmenu.querySelectorAll('.parent-menu').forEach(sib => {
+              if (sib === target) return;
+              const sibId = sib.getAttribute('data-parent');
+              const sibSub = document.getElementById(sibId);
+              if (sibSub) {
+                sibSub.classList.remove('show');
+                sib.classList.remove('active');
+              }
+            });
+          }
+
+          // 🔸 全局手风琴：关闭其他顶级菜单
+          if (topLevelParents.includes(target)) {
+            topLevelParents.forEach(parent => {
+              if (parent === target) return;
+              const id = parent.getAttribute('data-parent');
+              const sub = document.getElementById(id);
+              if (sub) {
+                sub.classList.remove('show');
+                parent.classList.remove('active');
+              }
+            });
+          }
+
+          // 切换当前
+          if (isCurrentlyOpen) {
+            submenu.classList.remove('show');
+            target.classList.remove('active');
+          } else {
+            submenu.classList.add('show');
+            target.classList.add('active');
+          }
+        }
+
+        // 叶子节点点击（图片切换）
+        if (target.classList.contains('submenu-item') && !target.classList.contains('parent-menu')) {
+          document.querySelectorAll('.submenu-item.active').forEach(el => {
+            el.classList.remove('active');
+          });
+          target.classList.add('active');
+
+          const imageUrl = target.getAttribute('data-image');
+          if (imageUrl) {
+            mainImage.src = imageUrl;
+            mainImage.alt = target.textContent.trim();
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
