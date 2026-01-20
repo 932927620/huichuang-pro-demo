@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    height: 100dvh;
+    min-width: 440px;
+}
+
+/* 右侧内容区：改用 flex 布局并撑满 */
+.content {
+    flex: 1;
+    /*padding: 20px;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    /* 关键：设置 min-height 确保不塌陷 */
+    /*min-height: 0; !* 防止 flex 子元素被压缩 *!*/
+    box-sizing: border-box;
+}
+
+/* 左侧菜单 */
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    background-color: #2c3e50;
+    color: white;
+    overflow-y: auto;
+    /*position: relative;*/
+    /*z-index: 1000;*/
+    /*height: 100vh; !* 确保占满视口高度 *!*/
+}
+
+/* Logo 样式 */
+.sidebar img {
+    display: block;
+    margin: 16px auto;
+    width: 120px;
+    height: 60px;
+}
+.system-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background: #1a202c;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    border-bottom: 4px solid #3b82f6;
+    margin: 10px 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+/* 父菜单 */
+.parent-menu {
+    cursor: pointer;
+    padding: 14px 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #34495e;
+    transition: background-color 0.2s;
+}
+
+.parent-menu:hover {
+    background-color: #34495e;
+}
+
+.parent-menu.active {
+    background-color: #3498db;
+}
+
+.arrow {
+    transition: transform 0.3s;
+}
+
+.parent-menu.active .arrow {
+    transform: rotate(90deg);
+}
+
+/* 子菜单容器 */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #316293;
+
+    border-left: 5px solid #d9e20c;
+    margin-left: 12px; /* 缩进表示层级 */
+}
+
+.submenu.show {
+    max-height: 1000px;
+}
+
+/* 子菜单项 - 通用 */
+.submenu-item {
+    padding: 12px 40px;
+    cursor: pointer;
+    border-bottom: 1px solid #3a506b;
+    transition: background-color 0.2s;
+}
+
+.submenu-item:hover {
+    background-color: #3a506b;
+}
+
+/* 高亮状态：统一去边框 + 白色文字 */
+.submenu-item.active {
+    background-color: #3498db;
+    color: white;
+    border-bottom: none; /* ✅ 关键：去掉边框 */
+}
+
+/* 顶级菜单项（如首页） */
+.submenu-item.standalone {
+    padding: 14px 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #34495e;
+}
+
+/* standalone 的 hover 更协调 */
+.submenu-item.standalone:hover {
+    background-color: #34495e;
+}
+
+/* 图片容器：改用 100% 宽高，且保持比例 */
+.image-container {
+    width: 100%;
+    height: 100%; /* ← 改为 100% */
+    /*max-width: none; !* 移除限制 *!*/
+    aspect-ratio: 16 / 9; /* 保持比例 */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 图片：铺满容器 */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* cover保证图片不变形，裁剪填充 contain 不裁剪填充*/
+    background-color: #f9f9f9; /* 背景色填充空白 */
+    border-radius: 8px;
+}
