@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>系统预览</title>
+  <link rel="stylesheet" href="css/preview.css" />
+</head>
+<body>
+
+  <div class="container">
+    <!-- 左侧菜单 -->
+    <div class="sidebar">
+<!--      <img src="imgs/logo2.png" alt="Logo" />-->
+      <div class="system-preview">系统预览</div>
+      <!-- 首页：standalone，无子菜单 -->
+      <div class="submenu-item standalone active" data-image="imgs/mypy/data.png">数据修复</div>
+      <div class="submenu-item standalone active" data-image="imgs/mypy/size.png">尺码管理</div>
+    </div>
+
+    <!-- 右侧图片区域 -->
+    <div class="content">
+      <div class="image-container">
+        <img id="mainImage" src="imgs/mypy/data.png" alt="数据修复" />
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const mainImage = document.getElementById('mainImage');
+      const sidebar = document.querySelector('.sidebar');
+
+      const topLevelParents = Array.from(sidebar.children).filter(el =>
+              el.classList.contains('parent-menu')
+      );
+
+      sidebar.addEventListener('click', function (e) {
+        const target = e.target;
+
+        if (target.classList.contains('parent-menu')) {
+          e.stopPropagation();
+
+          const targetId = target.getAttribute('data-parent');
+          const submenu = document.getElementById(targetId);
+          if (!submenu) return;
+
+          const isCurrentlyOpen = submenu.classList.contains('show');
+
+          // 🔸 局部手风琴：关闭同级嵌套菜单
+          const directParentSubmenu = target.closest('.submenu');
+          if (directParentSubmenu) {
+            directParentSubmenu.querySelectorAll('.parent-menu').forEach(sib => {
+              if (sib === target) return;
+              const sibId = sib.getAttribute('data-parent');
+              const sibSub = document.getElementById(sibId);
+              if (sibSub) {
+                sibSub.classList.remove('show');
+                sib.classList.remove('active');
+              }
+            });
+          }
+
+          // 🔸 全局手风琴：关闭其他顶级菜单
+          if (topLevelParents.includes(target)) {
+            topLevelParents.forEach(parent => {
+              if (parent === target) return;
+              const id = parent.getAttribute('data-parent');
+              const sub = document.getElementById(id);
+              if (sub) {
+                sub.classList.remove('show');
+                parent.classList.remove('active');
+              }
+            });
+          }
+
+          // 切换当前
+          if (isCurrentlyOpen) {
+            submenu.classList.remove('show');
+            target.classList.remove('active');
+          } else {
+            submenu.classList.add('show');
+            target.classList.add('active');
+          }
+        }
+
+        // 叶子节点点击（图片切换）
+        if (target.classList.contains('submenu-item') && !target.classList.contains('parent-menu')) {
+          document.querySelectorAll('.submenu-item.active').forEach(el => {
+            el.classList.remove('active');
+          });
+          target.classList.add('active');
+
+          const imageUrl = target.getAttribute('data-image');
+          if (imageUrl) {
+            mainImage.src = imageUrl;
+            mainImage.alt = target.textContent.trim();
+          }
+        }
+
+      });
+    });
+  </script>
+</body>
+</html>
