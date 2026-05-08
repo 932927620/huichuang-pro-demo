@@ -158,3 +158,24 @@ html, body {
     background-color: #f9f9f9; /* 背景色填充空白 */
     border-radius: 8px;
 }
+
+/* 图片可以有滚动条*/
+.image-container2 {
+    width: 100%;
+    height: 100%;          /* 🔥 关键：必须占满右侧剩余高度 */
+    overflow: auto;        /* 允许出现滚动条 */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: flex-start; /* 靠左 */
+    align-items: flex-start;     /* 靠上（解决顶部被切的问题） */
+}
+
+/* 图片：恢复原始尺寸 */
+.image-container2 img {
+    max-width: none;       /* 不限制宽度，显示原图宽度 */
+    height: auto;          /* 高度自适应 */
+    display: block;        /* 消除底部空隙 */
+    flex-shrink: 0;
+}
