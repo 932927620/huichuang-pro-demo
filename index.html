@@ -1,188 +1,171 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>系统预览</title>
-  <link rel="stylesheet" href="css/preview.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网站导航页</title>
+    <style>
+        /* 1. 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5; /* 浅灰背景 */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* 2. 主容器 */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* 3. 头部标题 */
+        header {
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* 4. 导航网格布局 (响应式) */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* 5. 卡片样式 */
+        .nav-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-decoration: none; /* 去除下划线 */
+            color: inherit;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease; /* 动画过渡 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e1e4e8;
+        }
+
+        /* 鼠标悬停时的效果 */
+        .nav-card:hover {
+            transform: translateY(-10px); /* 向上浮动 */
+            box-shadow: 0 14px 28px rgba(0,0,0,0.1); /* 阴影加深 */
+            border-color: #409EFF; /* 边框变色 */
+        }
+
+        /* 6. 图标与文字 */
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #303133;
+        }
+
+        .nav-desc {
+            font-size: 0.9rem;
+            color: #909399;
+            line-height: 1.5;
+        }
+
+        /* 7. 底部 */
+        footer {
+            margin-top: 60px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- 左侧菜单 -->
-    <div class="sidebar">
-<!--      <img src="imgs/logo2.png" alt="Logo" />-->
-      <div class="system-preview">芋道开源erp</div>
-      <!-- 首页：standalone，无子菜单 -->
-      <div class="submenu-item standalone active" data-image="imgs/home.png">首页</div>
+<div class="container">
+    <!-- 头部 -->
+    <header>
+        <h1>👋 欢迎来到我的主页</h1>
+        <p>个人开发的系统和用于修复公司问题的小工具</p>
+    </header>
 
-      <!-- 系统管理 -->
-      <div class="parent-menu" data-parent="menu1">
-        <span>系统管理</span>
-        <span class="arrow">▶</span>
-      </div>
-      <div class="submenu" id="menu1">
-        <div class="submenu-item" data-image="imgs/xt-user.png">用户管理</div>
-        <div class="submenu-item" data-image="imgs/xt-jsgl.png">角色管理</div>
-        <div class="submenu-item" data-image="imgs/xt-cdgl.png">菜单管理</div>
-        <div class="submenu-item" data-image="imgs/xt-bmgl.png">部门管理</div>
-        <div class="submenu-item" data-image="imgs/xt-gwgl.png">岗位管理</div>
-        <div class="submenu-item" data-image="imgs/xt-tzgg.png">通知公告</div>
-      </div>
+    <!-- 导航区域 -->
+    <div class="nav-grid">
 
-      <!-- 基础设施 -->
-      <div class="parent-menu" data-parent="menu2">
-        <span>基础设施</span>
-        <span class="arrow">▶</span>
-      </div>
-      <div class="submenu" id="menu2">
-        <div class="submenu-item" data-image="imgs/pz-wjpz.png">文件配置</div>
-        <div class="submenu-item" data-image="imgs/pz-wjlb.png">文件列表</div>
-        <div class="submenu-item" data-image="imgs/pz-pzgl.png">配置管理</div>
-      </div>
+        <!-- 链接 1：跳转到 个人简介页面 -->
+        <!-- 这里的 href 改成你实际的文件名 -->
+        <a href="erp.html" class="nav-card">
+            <span class="icon">🌐</span>
+            <div class="nav-title">erp系统预览</div>
+            <div class="nav-desc">芋道开源搭建修改后的erp</div>
+        </a>
 
-      <!-- ERP系统 -->
-      <div class="parent-menu" data-parent="menu3">
-        <span>ERP系统</span>
-        <span class="arrow">▶</span>
-      </div>
-      <div class="submenu" id="menu3">
-        <div class="submenu-item" data-image="imgs/erp/erp-erphome.png">ERP首页</div>
-        <div class="parent-menu" data-parent="menu3-cg">
-          <span>采购管理</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="submenu" id="menu3-cg">
-          <div class="submenu-item" data-image="imgs/erp/erp-cgdd.png">采购订单</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-cgrk.png">采购入库</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-cgth.png">采购退货</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-gysxx.png">供应商信息</div>
-        </div>
-        <div class="parent-menu" data-parent="menu3-kc">
-          <span>库存管理</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="submenu" id="menu3-kc">
-          <div class="submenu-item" data-image="imgs/erp/erp-ckxx.png">仓库信息</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-cpkc.png">产品库存</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-crkmx.png">出入库明细</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-qtrk.png">其他入库</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-qtck.png">其他出库</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-kcdb.png">库存调拨</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-kcpd.png">库存盘点</div>
-        </div>
-        <div class="parent-menu" data-parent="menu3-xs">
-          <span>销售管理</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="submenu" id="menu3-xs">
-          <div class="submenu-item" data-image="imgs/erp/erp-xsdd.png">销售订单</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-xsck.png">销售出库</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-xsth.png">销售退货</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-khxx.png">客户信息</div>
-        </div>
-        <div class="parent-menu" data-parent="menu3-cp">
-          <span>产品管理</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="submenu" id="menu3-cp">
-          <div class="submenu-item" data-image="imgs/erp/erp-cpxx.png">产品信息</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-cpfl.png">产品分类</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-cpdw.png">产品单位</div>
-        </div>
-        <div class="parent-menu" data-parent="menu3-cw">
-          <span>财务管理</span>
-          <span class="arrow">▶</span>
-        </div>
-        <div class="submenu" id="menu3-cw">
-          <div class="submenu-item" data-image="imgs/erp/erp-fkd.png">付款单</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-skd.png">收款单</div>
-          <div class="submenu-item" data-image="imgs/erp/erp-jszh.png">结算账户</div>
-        </div>
-      </div>
+        <!-- 链接 2：跳转到 相册/作品集页面 -->
+        <a href="mp.html" class="nav-card">
+            <span class="icon">🌐</span>
+            <div class="nav-title">公众号系统预览</div>
+            <div class="nav-desc">芋道开源搭建修改后的公众号管理</div>
+        </a>
+
+        <!-- 链接 3：跳转到 联系方式页面 -->
+        <a href="huichuang.html" class="nav-card">
+            <span class="icon">📧</span>
+            <div class="nav-title">py系统预览</div>
+            <div class="nav-desc">个人开发的py版快速开发框架</div>
+        </a>
+        <a href="py.html" class="nav-card">
+            <span class="icon">📧</span>
+            <div class="nav-title">py工具预览</div>
+            <div class="nav-desc">修复公司系统数据的小工具</div>
+        </a>
+        <a href="tt.html" class="nav-card">
+            <span class="icon">📧</span>
+            <div class="nav-title">科传系统预览</div>
+            <div class="nav-desc">科传零售地产管理系统预览</div>
+        </a>
+        <a href="gw.html" class="nav-card">
+            <span class="icon">📧</span>
+            <div class="nav-title">公司官网</div>
+            <div class="nav-desc">公司官网预览</div>
+        </a>
+        <!-- 链接 4：跳转到 外部网站 (示例) -->
+        <!-- target="_blank" 表示在新窗口打开 -->
+       <!-- <a href="https://www.example.com" target="_blank" class="nav-card">
+            <span class="icon">🌐</span>
+            <div class="nav-title">外部链接</div>
+            <div class="nav-desc">这是一个跳转到新标签页的外部网站示例。</div>
+        </a>-->
+
     </div>
 
-    <!-- 右侧图片区域 -->
-    <div class="content">
-      <div class="image-container">
-        <img id="mainImage" src="imgs/home.png" alt="首页" />
-      </div>
-    </div>
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const mainImage = document.getElementById('mainImage');
-      const sidebar = document.querySelector('.sidebar');
+    <!-- 底部 -->
+    <footer>
+        &copy; 2024 我的个人网站. All rights reserved.
+    </footer>
+</div>
 
-      const topLevelParents = Array.from(sidebar.children).filter(el =>
-              el.classList.contains('parent-menu')
-      );
-
-      sidebar.addEventListener('click', function (e) {
-        const target = e.target;
-
-        if (target.classList.contains('parent-menu')) {
-          e.stopPropagation();
-
-          const targetId = target.getAttribute('data-parent');
-          const submenu = document.getElementById(targetId);
-          if (!submenu) return;
-
-          const isCurrentlyOpen = submenu.classList.contains('show');
-
-          // 🔸 局部手风琴：关闭同级嵌套菜单
-          const directParentSubmenu = target.closest('.submenu');
-          if (directParentSubmenu) {
-            directParentSubmenu.querySelectorAll('.parent-menu').forEach(sib => {
-              if (sib === target) return;
-              const sibId = sib.getAttribute('data-parent');
-              const sibSub = document.getElementById(sibId);
-              if (sibSub) {
-                sibSub.classList.remove('show');
-                sib.classList.remove('active');
-              }
-            });
-          }
-
-          // 🔸 全局手风琴：关闭其他顶级菜单
-          if (topLevelParents.includes(target)) {
-            topLevelParents.forEach(parent => {
-              if (parent === target) return;
-              const id = parent.getAttribute('data-parent');
-              const sub = document.getElementById(id);
-              if (sub) {
-                sub.classList.remove('show');
-                parent.classList.remove('active');
-              }
-            });
-          }
-
-          // 切换当前
-          if (isCurrentlyOpen) {
-            submenu.classList.remove('show');
-            target.classList.remove('active');
-          } else {
-            submenu.classList.add('show');
-            target.classList.add('active');
-          }
-        }
-
-        // 叶子节点点击（图片切换）
-        if (target.classList.contains('submenu-item') && !target.classList.contains('parent-menu')) {
-          document.querySelectorAll('.submenu-item.active').forEach(el => {
-            el.classList.remove('active');
-          });
-          target.classList.add('active');
-
-          const imageUrl = target.getAttribute('data-image');
-          if (imageUrl) {
-            mainImage.src = imageUrl;
-            mainImage.alt = target.textContent.trim();
-          }
-        }
-
-      });
-    });
-  </script>
 </body>
 </html>
