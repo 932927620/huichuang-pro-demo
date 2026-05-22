@@ -66,6 +66,7 @@
             align-items: center;
             justify-content: center;
             border: 1px solid #e1e4e8;
+            position: relative;
         }
 
         /* 鼠标悬停时的效果 */
@@ -73,6 +74,29 @@
             transform: translateY(-10px); /* 向上浮动 */
             box-shadow: 0 14px 28px rgba(0,0,0,0.1); /* 阴影加深 */
             border-color: #409EFF; /* 边框变色 */
+        }
+
+        /* Gitee 图标样式 */
+        .gitee-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+
+            /* 1. 强制限制图片大小 */
+            width: 24px;
+            height: 24px;
+
+            /* 2. 将黑色图标变为 Gitee 红色 (#C71D23) */
+            /* 原理：先变灰，再改变色相，最后调整饱和度 */
+            filter: brightness(0) saturate(100%) invert(14%) sepia(93%) saturate(6428%) hue-rotate(350deg) brightness(96%) contrast(106%);
+
+            transition: transform 0.3s, filter 0.3s;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .gitee-icon:hover {
+            transform: scale(1.2); /* 悬停放大一点 */
         }
 
         /* 6. 图标与文字 */
@@ -115,27 +139,27 @@
     <!-- 导航区域 -->
     <div class="nav-grid">
 
-        <!-- 链接 1：跳转到 个人简介页面 -->
-        <!-- 这里的 href 改成你实际的文件名 -->
+        <a href="huichuang.html" target="_blank" class="nav-card">
+            <span class="icon">📧</span>
+            <div class="nav-title">py系统预览</div>
+            <div class="nav-desc">个人开发的py版快速开发框架</div>
+            <span class="gitee-icon" title="前往Gitee" onclick="window.open('https://gitee.com/lin-chuanghui/huichuang-py', '_blank')">
+                <img src="imgs/gitee.svg" alt="Gitee" class="gitee-icon" />
+            </span>
+        </a>
+
         <a href="erp.html" target="_blank" class="nav-card">
             <span class="icon">🌐</span>
             <div class="nav-title">erp系统预览</div>
             <div class="nav-desc">芋道开源搭建修改后的erp</div>
         </a>
 
-        <!-- 链接 2：跳转到 相册/作品集页面 -->
         <a href="mp.html" target="_blank" class="nav-card">
             <span class="icon">🌐</span>
             <div class="nav-title">公众号系统预览</div>
             <div class="nav-desc">芋道开源搭建修改后的公众号管理</div>
         </a>
 
-        <!-- 链接 3：跳转到 联系方式页面 -->
-        <a href="huichuang.html" target="_blank" class="nav-card">
-            <span class="icon">📧</span>
-            <div class="nav-title">py系统预览</div>
-            <div class="nav-desc">个人开发的py版快速开发框架</div>
-        </a>
         <a href="py.html" target="_blank" class="nav-card">
             <span class="icon">📧</span>
             <div class="nav-title">py工具预览</div>
@@ -166,6 +190,17 @@
         &copy; 2024 我的个人网站. All rights reserved.
     </footer>
 </div>
+<script>
+    // 获取所有带有 gitee-icon 类的元素
+    const giteeIcons = document.querySelectorAll('.gitee-icon');
 
+    giteeIcons.forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            e.preventDefault(); // 防止默认行为
+            e.stopPropagation(); // 阻止事件冒泡，防止触发父级 a 标签的跳转
+            window.open(this.getAttribute('data-url'), '_blank'); // 打开新窗口
+        });
+    });
+</script>
 </body>
 </html>

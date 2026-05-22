@@ -11,17 +11,20 @@
   <div class="container">
     <!-- 左侧菜单 -->
     <div class="sidebar">
-<!--      <img src="imgs/logo2.png" alt="Logo" />-->
+<!--      <img src="imgs/logo2.png" class="logoimg" alt="Logo" />-->
       <div class="system-preview">自建py管理系统</div>
       <!-- 首页：standalone，无子菜单 -->
-      <div class="submenu-item standalone active" data-image="imgs/huichuang-py/huichuang-py.png">系统预览</div>
-
+      <div class="submenu-item standalone active" data-image="imgs/huichuang-py/huichuang-py.png">主页效果</div>
+      <div class="submenu-item standalone" data-image="imgs/huichuang-py/huichuang-tool.png">小工具效果</div>
+      <div class="submenu-item standalone" data-image="imgs/huichuang-py/huichuang-admin.png">个人中心效果</div>
+      <div class="submenu-item standalone" data-image="imgs/huichuang-py/huichuang-en.png">英文版效果</div>
+      <div id="gitee-link" class="submenu-item standalone gitee-link"><img src="imgs/gitee.svg" alt="Gitee" class="icon-gitee" />Gitee地址</div>
     </div>
 
     <!-- 右侧图片区域 -->
     <div class="content">
       <div class="image-container">
-        <img id="mainImage" src="imgs/huichuang-py/huichuang-py.png" alt="预览" />
+        <img id="mainImage" src="imgs/huichuang-py/huichuang-py.png" alt="主页效果" />
       </div>
     </div>
   </div>
@@ -99,6 +102,14 @@
 
       });
     });
+
+    const giteeLink = document.getElementById('gitee-link');
+    if (giteeLink) {
+        giteeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://gitee.com/lin-chuanghui/huichuang-py', '_blank');
+        });
+    }
   </script>
 </body>
 </html>
